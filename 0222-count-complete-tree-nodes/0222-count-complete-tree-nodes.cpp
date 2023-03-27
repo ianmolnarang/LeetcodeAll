@@ -11,18 +11,32 @@
  */
 class Solution {
 public:
-    void in(TreeNode* root , int &c){
-          if(root==NULL) return ; 
-        
-        in(root->left , c) ;
-        c++ ;
-        in(root->right ,c) ;
-         
-    }
     int countNodes(TreeNode* root) {
-       int count = 0  ;
-        in(root , count) ;
-        return count ; 
+        if(root==NULL)return 0 ; 
+        int lh = findleftHeight(root) ; 
+        int rh = findrightHeight(root) ; 
+        //means full tree
+        if(lh==rh) 
+            return (1<<lh)-1 ; 
+        else 
+            return 1 + countNodes(root->left) + countNodes(root->right) ; 
+        
     }
-   
+    int findleftHeight(TreeNode* root){
+        int h=0 ; 
+        while(root){
+            h++ ;
+            root = root -> left ; 
+        }
+        return h; 
+    }
+        int findrightHeight(TreeNode* root){
+        int h=0 ; 
+        while(root){
+            h++ ;
+            root = root -> right ; 
+        }
+        return h; 
+    }
+
 };
